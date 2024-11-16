@@ -6,7 +6,13 @@ interface IUser extends Document {
   age: number;
   videos: ObjectId[];
   fullName: string;
- }
+  friend: IFriend[];
+}
+
+interface IFriend extends Document {
+  first: string;
+  last?: string;
+}
 
 // Schema to create User model
 const userSchema = new Schema<IUser>(
@@ -20,6 +26,21 @@ const userSchema = new Schema<IUser>(
         ref: 'video',
       },
     ],
+  },
+  {
+    // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
+    // Here we are indicating that we want virtuals to be included with our response, overriding the default behavior
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
+  }
+);
+
+const friendSchema = new Schema<IFriend>(
+  {
+    first: String,
+    last: String
   },
   {
     // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
@@ -47,5 +68,6 @@ userSchema
 
 // Initialize our User model
 const User = model('user', userSchema);
+const Friend = model('friend', friendSchema);
 
-export default User
+export {User, Friend};
