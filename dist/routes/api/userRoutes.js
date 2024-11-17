@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import { getUsers, getSingleUser, createUser, updateUser, deleteUser, createFriend, /*  deleteFriend */ } from '../../controllers/userController.js';
+import { getUsers, getSingleUser, createUser, updateUser, deleteUser, createFriend, deleteFriend } from '../../controllers/userController.js';
 // /api/users
 // user get route works
 // user create route
@@ -14,6 +14,8 @@ router.route('/:userId').get(getSingleUser)
     // user delete routes work
     .delete(deleteUser);
 // TODO: create and delete friend routes
+// create friend route works
 router.route('/friends/:userId')
-    .post(createFriend);
+    .post(createFriend)
+    .delete(deleteFriend);
 export default router;

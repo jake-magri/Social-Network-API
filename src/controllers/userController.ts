@@ -73,12 +73,25 @@ import { Request, Response } from 'express';
       res.status(500).json(err);
     }
   }
-  // // TODO: delete friend on user
-  // export const deleteFriend = async (req:Request, res: Response) => {
-  //   try {
-  //     const user = await User.findByIdAndUpdate({ _id: req.params.userId }, req.body, {new: true});
-  //     res.status(200).json(user);
-  //   } catch (err) {
-  //     res.status(500).json(err);
-  //   }
-  // }
+
+  // TODO: delete friend
+  // delete friend function now works
+  export const deleteFriend = async (req:Request, res: Response) => {
+    try {
+      const friend = await Friend.findByIdAndDelete(req.params.userId);
+
+      if (!friend) {
+        return res.status(404).json({ message: 'No friend with that ID' });
+      }
+  
+      // Remove the friend reference from the user
+      await User.updateMany(
+        { friends: friend._id },
+        { $pull: { friends: friend._id } }
+      );
+  
+      return res.status(200).json({ message: 'Friend deleted and reference removed' });
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
