@@ -35,3 +35,38 @@ import { Request, Response } from 'express';
       res.status(500).json(err);
     }
   }
+
+  // TODO: Update a user by id
+  export const updateUser = async (req:Request, res: Response) => {
+    try {
+      
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  // TODO: Delete a user by id
+  export const deleteUser = async (req:Request, res: Response) => {
+    try {
+
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  // TODO: create friend on user
+  export const createFriend = async (req:Request, res: Response) => {
+    try {
+
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+  // TODO: delete friend on user
+  export const deleteFriend = async (req:Request, res: Response) => {
+    try {
+
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }

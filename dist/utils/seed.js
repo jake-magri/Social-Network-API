@@ -5,7 +5,7 @@ connection.on('error', (err) => err);
 connection.once('open', async () => {
     console.log('connected');
     // Delete the collections if they exist
-    let videoCheck = await connection.db?.listCollections({ name: 'videos' }).toArray();
+    let videoCheck = await connection.db?.listCollections({ name: 'messages' }).toArray();
     if (videoCheck?.length) {
         await connection.dropCollection('videos');
     }

@@ -1,7 +1,8 @@
 import { Router } from 'express';
 const router = Router();
 import { getVideos, getSingleVideo, createVideo, updateVideo, deleteVideo, addVideoResponse, removeVideoResponse } from '../../controllers/videoController.js';
-// /api/videos
+// user get route works
+// user create route
 router.route('/').get(getVideos).post(createVideo);
 // /api/videos/:videoId
 router

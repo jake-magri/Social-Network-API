@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import Response from './Reaction.js';
-
+// TODO: update video properties to that of a thought
 interface IVideo {
   published: boolean;
   createdAt: Date;
