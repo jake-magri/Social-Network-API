@@ -1,21 +1,7 @@
 import { Schema, model } from 'mongoose';
-// Schema to create User model
-const userSchema = new Schema({
+const friendSchema = new Schema({
     first: String,
-    last: String,
-    age: Number,
-    videos: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'video',
-        },
-    ],
-    friends: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'friend',
-        },
-    ],
+    last: String
 }, {
     // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
     // Here we are indicating that we want virtuals to be included with our response, overriding the default behavior
@@ -24,8 +10,9 @@ const userSchema = new Schema({
     },
     id: false,
 });
+// Create a virtual property `responses` that gets the amount of response per video
 // Create a virtual property `fullName` that gets and sets the user's full name
-userSchema
+friendSchema
     .virtual('fullName')
     // Getter
     .get(function () {
@@ -37,6 +24,6 @@ userSchema
     const last = v.split(' ')[1];
     this.set({ first, last });
 });
-// Initialize our User model
-const User = model('user', userSchema);
-export { User };
+// Initialize our Video model
+const Friend = model('friend', friendSchema);
+export default Friend;

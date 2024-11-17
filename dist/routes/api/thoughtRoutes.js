@@ -1,8 +1,10 @@
 import { Router } from 'express';
 const router = Router();
 import { getVideos, getSingleVideo, createVideo, updateVideo, deleteVideo, addVideoResponse, removeVideoResponse } from '../../controllers/videoController.js';
-// user get route works
-// user create route
+// create thought / video route works
+// read thought / video route works
+// update thought route works
+// delete thought route works
 router.route('/').get(getVideos).post(createVideo);
 // /api/videos/:videoId
 router
@@ -11,6 +13,7 @@ router
     .get(getSingleVideo)
     .put(updateVideo)
     .delete(deleteVideo);
+// create and delete reactions routes work
 // /api/videos/:videoId/responses
 router.route('/:videoId/responses').post(addVideoResponse);
 // /api/videos/:videoId/responses/:responseId
