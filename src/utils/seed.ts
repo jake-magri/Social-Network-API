@@ -1,15 +1,15 @@
 import connection from '../config/connection.js';
-import { User, Video } from '../models/index.js';
-import { getRandomName, getRandomVideos } from './data.js';
+import { User, Thought } from '../models/index.js';
+import { getRandomThoughts, getRandomName } from './data.js';
 
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
   console.log('connected');
   // Delete the collections if they exist
-  let videoCheck = await connection.db?.listCollections({ name: 'messages' }).toArray();
-  if (videoCheck?.length) {
-    await connection.dropCollection('videos');
+  let thoughtCheck = await connection.db?.listCollections({ name: 'messages' }).toArray();
+  if (thoughtCheck?.length) {
+    await connection.dropCollection('thoughts');
   }
 
   let userCheck = await connection.db?.listCollections({ name: 'users' }).toArray();
@@ -18,26 +18,22 @@ connection.once('open', async () => {
   }
 
   const users = [];
-  const videos = getRandomVideos(10);
+  const thoughts = getRandomThoughts(10);
 
   for (let i = 0; i < 20; i++) {
-    const fullName = getRandomName();
-    const first = fullName.split(' ')[0];
-    const last = fullName.split(' ')[1];
 
     users.push({
-      first,
-      last,
-      age: Math.floor(Math.random() * (99 - 18 + 1) + 18),
+      username: getRandomName(),
+      email: `test${Math.random()}@gmail.com`
     });
   }
 
   await User.insertMany(users);
-  await Video.insertMany(videos);
+  await Thought.insertMany(thoughts);
 
-  // loop through the saved videos, for each video we need to generate a video response and insert the video responses
+  // loop through the saved thoughts, for each thought we need to generate a thought response and insert the thought responses
   console.table(users);
-  console.table(videos);
+  console.table(thoughts);
   console.info('Seeding complete! 🌱');
   process.exit(0);
 });

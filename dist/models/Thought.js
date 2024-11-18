@@ -1,38 +1,36 @@
 import { Schema, model } from 'mongoose';
-import Response from './Reaction.js';
+import Reaction from './Reaction.js';
 // Schema to create Post model
-const videoSchema = new Schema({
-    published: {
-        type: Boolean,
-        default: false,
+const thoughtSchema = new Schema({
+    thoughtText: {
+        type: String,
+        minLength: 1,
+        maxLength: 280,
     },
     createdAt: {
         type: Date,
         default: Date.now,
+        get: (value) => new Date(value.toISOString()), // Custom getter to format date
     },
-    advertiserFriendly: {
-        type: Boolean,
-        default: true,
+    username: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true
     },
-    description: {
-        type: String,
-        minLength: 8,
-        maxLength: 500,
-    },
-    responses: [Response],
+    reactions: [Reaction],
 }, {
     toJSON: {
         virtuals: true,
     },
     id: false,
 });
-// Create a virtual property `responses` that gets the amount of response per video
-videoSchema
-    .virtual('getResponses')
+// Create a virtual property `reactions` that gets the amount of response per thought
+thoughtSchema
+    .virtual('reactionCount')
     // Getter
     .get(function () {
-    return this.responses.length;
+    return this.reactions.length;
 });
-// Initialize our Video model
-const Video = model('video', videoSchema);
-export default Video;
+// Initialize our thought model
+const Thought = model('thoughts', thoughtSchema);
+export default Thought;

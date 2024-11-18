@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 import Reaction from './Reaction.js';
 
 // TODO: update video properties to that of a thought
@@ -20,6 +20,7 @@ const thoughtSchema = new Schema<IThought>(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: (value: Date) => new Date(value.toISOString()), // Custom getter to format date
     },
     username: {
       type: Schema.Types.ObjectId,
@@ -45,6 +46,6 @@ thoughtSchema
   });
 
 // Initialize our thought model
-const Thought = model('thought', thoughtSchema);
+const Thought = model('thoughts', thoughtSchema);
 
 export default Thought;

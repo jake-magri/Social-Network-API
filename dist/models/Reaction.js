@@ -1,10 +1,10 @@
 import { Schema, Types } from 'mongoose';
-const responseSchema = new Schema({
+const reactionSchema = new Schema({
     reactionId: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId(),
     },
-    responseBody: {
+    reactionBody: {
         type: String,
         required: true,
         maxlength: 280,
@@ -16,6 +16,7 @@ const responseSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        get: (value) => new Date(value.toISOString()), // Custom getter to format date
     },
 }, {
     toJSON: {
@@ -23,4 +24,4 @@ const responseSchema = new Schema({
     },
     id: false,
 });
-export default responseSchema;
+export default reactionSchema;

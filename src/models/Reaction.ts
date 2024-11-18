@@ -25,6 +25,7 @@ const reactionSchema = new Schema<IReaction>(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: (value: Date) => new Date(value.toISOString()), // Custom getter to format date
     },
   },
   {
