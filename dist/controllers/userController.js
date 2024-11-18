@@ -69,7 +69,8 @@ export const createFriend = async (req, res) => {
         res.status(500).json(err);
     }
 };
-// TODO: delete friend on user
+// TODO: delete friend
+// delete friend function now works
 export const deleteFriend = async (req, res) => {
     try {
         const friend = await Friend.findByIdAndDelete(req.params.userId);

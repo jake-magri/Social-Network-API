@@ -15,6 +15,7 @@ router.route('/:userId').get(getSingleUser)
     .delete(deleteUser);
 // TODO: create and delete friend routes
 // create friend route works
+// delete friend route works
 router.route('/friends/:userId')
     .post(createFriend)
     .delete(deleteFriend);
