@@ -31,7 +31,7 @@ const userSchema = new Schema({
     toJSON: {
         virtuals: true,
     },
-    id: false,
+    _id: false,
 });
 // Create a virtual property `friendCount` that gets the length of friends document array
 userSchema

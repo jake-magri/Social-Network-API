@@ -94,7 +94,9 @@ export const addThoughtReaction = async (req, res) => {
 // Remove thought response
 export const removeThoughtReaction = async (req, res) => {
     try {
-        const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $pull: { reactions: { responseId: req.params.reactionId } } }, { runValidators: true, new: true });
+        const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId, 'reactions.reactionId': req.params.reactionId }, // Match the reactionId within reactions array
+        { $pull: { reactions: { reactionId: req.params.reactionId } } }, // Pull the reaction object where reactionId matches
+        { runValidators: true, new: true });
         if (!thought) {
             return res.status(404).json({ message: 'No thought with this id!' });
         }
