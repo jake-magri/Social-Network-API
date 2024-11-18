@@ -1,35 +1,32 @@
-import { Schema, model } from 'mongoose';
-import Response from './Reaction.js';
+import { Schema, model, Document, Types } from 'mongoose';
+import Reaction from './Reaction.js';
+
 // TODO: update video properties to that of a thought
-interface IVideo {
-  published: boolean;
+interface IThought extends Document{
+  thoughtText: String;
   createdAt: Date;
-  advertiserFriendly: boolean;
-  description: string;
-  responses: Response[];
+  username: Schema.Types.ObjectId;
+  reactions: typeof Reaction[]; // Reactions is an array of Reaction subdocuments
 }
 
 // Schema to create Post model
-const videoSchema = new Schema<IVideo>(
+const thoughtSchema = new Schema<IThought>(
   {
-    published: {
-      type: Boolean,
-      default: false,
+    thoughtText: {
+      type: String,
+      minLength: 1,
+      maxLength: 280,
     },
     createdAt: {
       type: Date,
       default: Date.now,
     },
-    advertiserFriendly: {
-      type: Boolean,
-      default: true,
+    username: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true
     },
-    description: {
-      type: String,
-      minLength: 8,
-      maxLength: 500,
-    },
-    responses: [Response],
+    reactions: [Reaction],
   },
   {
     toJSON: {
@@ -39,15 +36,15 @@ const videoSchema = new Schema<IVideo>(
   }
 );
 
-// Create a virtual property `responses` that gets the amount of response per video
-videoSchema
-  .virtual('getResponses')
+// Create a virtual property `reactions` that gets the amount of response per thought
+thoughtSchema
+  .virtual('reactionCount')
   // Getter
   .get(function () {
-    return this.responses.length;
+    return this.reactions.length;
   });
 
-// Initialize our Video model
-const Video = model('video', videoSchema);
+// Initialize our thought model
+const Thought = model('thought', thoughtSchema);
 
-export default Video;
+export default Thought;
