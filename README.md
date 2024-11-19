@@ -21,7 +21,7 @@ API built from scratch for a social network web application where users can shar
 ## Usage
 
 ### Video Demo
-![Video demo of application.](assets/videos/undefined)
+https://github.com/user-attachments/assets/07dad263-b615-445d-b4d2-a45bb94a7867
 
 ### Usage Information
 Use the following to reference API Routes:
