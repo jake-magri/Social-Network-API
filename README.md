@@ -16,7 +16,7 @@ API built from scratch for a social network web application where users can shar
 
 ## Installation
 
-```npm i && npm run build && npm run start``` This API can be used by making HTTP requests to it's end-points:
+```npm i && npm run build && npm run start``` This API can be used by making HTTP requests to it's end-points.
 
 ## Usage
 
